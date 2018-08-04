@@ -9,6 +9,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace AuthCore.Controllers
 {
+    /// <summary>
+    /// Manages user accounts
+    /// </summary>
     [Route("api/[controller]")]
     public class AccountController : Controller
     {
@@ -23,6 +26,11 @@ namespace AuthCore.Controllers
             _dbContext = dbContext;
         }
 
+        /// <summary>
+        /// Add user to the system
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         // POST api/account
         [HttpPost]
         public async Task<IActionResult> Post([FromBody]RegistrationViewModel model)
