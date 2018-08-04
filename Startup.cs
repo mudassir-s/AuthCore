@@ -10,6 +10,8 @@ using AutoMapper;
 using AuthCore.Models.Entities;
 using Microsoft.AspNetCore.Identity;
 using FluentValidation.AspNetCore;
+using NSwag.AspNetCore;
+using System.Reflection;
 
 namespace AuthCore
 {
@@ -53,6 +55,8 @@ namespace AuthCore
             {
                 configuration.RootPath = "ClientApp/dist";
             });
+
+            services.AddSwagger();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -71,6 +75,13 @@ namespace AuthCore
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
+
+            app.UseSwaggerUi3(typeof(Startup).GetTypeInfo().Assembly, s =>
+            {
+                s.GeneratorSettings.Title = "Auth Demo";
+                s.GeneratorSettings.DefaultUrlTemplate = "{controller}/{action}/{id?}";
+                s.GeneratorSettings.DefaultPropertyNameHandling = NJsonSchema.PropertyNameHandling.CamelCase;
+            });
 
             app.UseMvc(routes =>
             {
