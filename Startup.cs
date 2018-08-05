@@ -43,7 +43,7 @@ namespace AuthCore
             ));
 
             services.AddSingleton<IJwtFactory, JwtFactory>();
-            services.AddTransient<JwtIssuerOptions>();
+            services.AddSingleton<JwtIssuerOptions>();
 
             IdentityBuilder builder = services.AddIdentityCore<User>(u =>
             {
@@ -126,6 +126,7 @@ namespace AuthCore
                 app.UseHsts();
             }
 
+            app.UseAuthentication();
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
